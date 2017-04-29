@@ -13,13 +13,19 @@ public class DubboStartupRunner implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(DubboStartupRunner.class);
     private String appName;
 
-    public void setAppName(String appName){
-        this.appName=appName;
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
+
     @Override
     public void run(String... args) throws Exception {
-        log.info(appName.concat("started..."));
+        log.info(appName.concat(" started..."));
         CountDownLatch latch = new CountDownLatch(10);
-        latch.await();
+        try {
+            latch.await();
+        } catch (Throwable t) {
+            log.error(appName.concat(" err..."), t);
+            throw new Exception(t);
+        }
     }
 }
