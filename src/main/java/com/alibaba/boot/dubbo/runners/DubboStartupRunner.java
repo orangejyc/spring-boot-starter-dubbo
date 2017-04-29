@@ -20,9 +20,8 @@ public class DubboStartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info(appName.concat(" started..."));
-        CountDownLatch latch = new CountDownLatch(10);
         try {
-            latch.await();
+            new CountDownLatch(1).await();
         } catch (Throwable t) {
             log.error(appName.concat(" err..."), t);
             throw new Exception(t);
