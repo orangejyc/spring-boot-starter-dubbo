@@ -1,5 +1,6 @@
 package com.alibaba.boot.dubbo;
 
+import com.alibaba.boot.dubbo.runners.DubboStartupRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -74,4 +75,11 @@ public class DubboAutoConfiguration {
     return new DubboOperationEndpoint();
   }
 
+  @Bean
+  @ConditionalOnMissingBean
+  public DubboStartupRunner dubboStartupRunner() {
+    DubboStartupRunner dubboStartupRunner = new DubboStartupRunner();
+    dubboStartupRunner.setAppName(this.properties.getAppname());
+    return dubboStartupRunner;
+  }
 }
